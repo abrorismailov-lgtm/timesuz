@@ -1,0 +1,18 @@
+{
+  "name": "times-news",
+  "version": "1.0.0",
+  "description": "Новостной сайт с автозаполнением из Telegram-канала times_officialuz",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "scrape": "node -e \"require('./server/scraper').scrape().then(d=>{require('fs').writeFileSync('server/news.json',JSON.stringify(d,null,2));console.log('Сохранено постов:',d.count)}).catch(e=>{console.error(e);process.exit(1)})\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.22.2",
+    "jsdom": "^24.1.3"
+  },
+  "license": "MIT"
+}

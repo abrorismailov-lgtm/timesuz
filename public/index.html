@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="uz-Cyrl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TIMES — янгиликлар портали</title>
+<meta name="description" content="TIMES каналидан сўнгги янгиликлар. Сиёсат, иқтисод, технологиялар, маданият." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <span class="logo">TIMES</span>
+        <span class="logo-sub">officialuz</span>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Қидириш"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        <button class="icon-btn" id="themeBtn" aria-label="Мавзуни алмаштириш"><svg id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <div class="wrap">
+        <input type="text" id="searchInput" placeholder="Янгиликлар бўйича қидириш…" />
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap main">
+    <div id="status" class="status"></div>
+
+    <section id="hero" class="hero"></section>
+
+    <div class="feed-head">
+      <h2 class="feed-title">Янгиликлар ленталари</h2>
+      <span class="updated" id="updated"></span>
+    </div>
+
+    <section id="feed" class="feed"></section>
+
+    <div class="load-more-wrap">
+      <button id="loadMore" class="load-more" hidden>Яна кўрсатиш</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="logo small">TIMES</span>
+      <p>Контент <a href="https://t.me/times_officialuz" target="_blank" rel="noopener">@times_officialuz</a> Telegram-каналидан автоматик равишда янгиланади.</p>
+      <p class="muted">© <span id="year"></span> TIMES. Барча материаллар муаллифларига тегишли.</p>
+    </div>
+  </footer>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <article class="modal-card" id="modalCard"></article>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

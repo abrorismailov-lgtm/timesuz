@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: times-news
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server/server.js
+    envVars:
+      - key: TG_CHANNEL
+        value: times_officialuz
+      - key: REFRESH_MIN
+        value: "5"
