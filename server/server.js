@@ -80,6 +80,11 @@ function checkAuth(req, res, next) {
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// /admin без .html тоже работает
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'admin.html'));
+});
+
 // публичная лента — с наложенными правками
 app.get('/api/news', (req, res) => {
   res.set('Cache-Control', 'no-store');
