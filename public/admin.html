@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uz-Cyrl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TIMES — Бошқарув панели</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0e0e0c;--card:#1a1a16;--soft:#23231d;--text:#f3f1e9;--muted:#aaa79b;
+    --faint:#76746a;--border:rgba(255,255,255,.12);--accent:#ff6a45;--ok:#3fb27f;--danger:#e2554a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.55}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 18px 60px}
+  h1{font-size:22px;font-weight:600;margin-bottom:4px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .login{max-width:360px;margin:80px auto;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px}
+  .login h1{margin-bottom:6px}
+  input,textarea,select{width:100%;background:var(--soft);border:1px solid var(--border);color:var(--text);
+    font:inherit;font-size:14px;padding:10px 12px;border-radius:9px;outline:none}
+  input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+  textarea{resize:vertical;min-height:70px}
+  label.field{display:block;font-size:12px;color:var(--muted);margin:12px 0 5px}
+  .btn{font:inherit;font-size:14px;font-weight:500;background:var(--accent);color:#fff;border:none;
+    padding:11px 20px;border-radius:9px;cursor:pointer;transition:.15s}
+  .btn:hover{opacity:.9}
+  .btn.ghost{background:none;border:1px solid var(--border);color:var(--text)}
+  .btn.sm{padding:7px 14px;font-size:13px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .status{font-size:13px;color:var(--muted)}
+  .status.ok{color:var(--ok)}
+  .status.err{color:var(--danger)}
+  .post{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+  .post.hidden-post{opacity:.5}
+  .post-head{display:flex;gap:12px;align-items:flex-start}
+  .thumb{width:74px;height:56px;border-radius:8px;background:var(--soft) center/cover;flex-shrink:0}
+  .post-main{flex:1;min-width:0}
+  .post-title{font-size:15px;font-weight:500;margin-bottom:3px}
+  .post-meta{font-size:12px;color:var(--faint);display:flex;gap:12px;flex-wrap:wrap}
+  .pill{font-size:11px;padding:2px 9px;border-radius:99px;background:var(--soft);color:var(--muted)}
+  .pill.cat{color:var(--accent)}
+  .toggles{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+  .toggles label{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);cursor:pointer;user-select:none}
+  .toggles input{width:auto}
+  .edit-area{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:none}
+  .edit-area.open{display:block}
+  .row2{display:grid;grid-template-columns:1fr 200px;gap:12px}
+  .badge{font-size:11px;padding:2px 8px;border-radius:99px;margin-left:6px}
+  .badge.h{background:rgba(226,85,74,.18);color:#f0978f}
+  .badge.p{background:rgba(255,106,69,.18);color:#ffae93}
+  .badge.e{background:rgba(63,178,127,.18);color:#7fd3ad}
+  .savebar{position:sticky;bottom:0;background:linear-gradient(transparent,var(--bg) 40%);padding:18px 0 6px;margin-top:10px;display:flex;gap:12px;align-items:center}
+  @media(max-width:560px){.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="loginView" class="login">
+  <h1>Бошқарув панели</h1>
+  <p class="sub">Кириш учун паролни киритинг</p>
+  <label class="field">Парол</label>
+  <input type="password" id="pass" placeholder="••••••••" />
+  <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
+    <button class="btn" id="loginBtn">Кириш</button>
+    <span class="status" id="loginStatus"></span>
+  </div>
+</div>
+
+<div id="adminView" class="wrap" style="display:none">
+  <div class="topbar">
+    <div>
+      <h1>Янгиликларни бошқариш</h1>
+      <p class="sub" id="countLine">Юкланмоқда…</p>
+    </div>
+    <div class="toolbar">
+      <a href="/" class="btn ghost sm" target="_blank">Сайтни очиш</a>
+      <button class="btn ghost sm" id="reloadBtn">Янгилаш</button>
+    </div>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="savebar">
+    <button class="btn" id="saveBtn">Ўзгаришларни сақлаш</button>
+    <span class="status" id="saveStatus"></span>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
