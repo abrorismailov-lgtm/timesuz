@@ -59,13 +59,32 @@ function applyOverrides(raw) {
 async function refresh() {
   try {
     const data = await scrape();
-    if (data.posts.length) {
-      cache = data;
-      fs.writeFileSync(CACHE_FILE, JSON.stringify(data, null, 2));
-      console.log(`[refresh] обновлено: ${data.count} постов в ${data.updatedAt}`);
-    } else {
-      console.warn('[refresh] получено 0 постов, оставляю старый кэш');
+    if (!data.posts.length) {
+      console.warn('[refresh] получено 0 постов, оставляю архив без изменений');
+      return;
     }
+    // АРХИВ: сливаем свежие посты со старыми по id, ничего не теряя
+    const byId = new Map((cache.posts || []).map((p) => [p.id, p]));
+    let added = 0;
+    for (const p of data.posts) {
+      if (!byId.has(p.id)) added++;
+      byId.set(p.id, p); // новый добавится, существующий обновится свежей версией
+    }
+    let merged = [...byId.values()];
+    // сортировка: новые сверху (по дате; без даты — в конец)
+    merged.sort((a, b) => {
+      const ta = a.date ? Date.parse(a.date) : 0;
+      const tb = b.date ? Date.parse(b.date) : 0;
+      return tb - ta;
+    });
+    cache = {
+      channel: data.channel,
+      updatedAt: data.updatedAt,
+      count: merged.length,
+      posts: merged,
+    };
+    fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
+    console.log(`[refresh] архив: всего ${merged.length} постов (+${added} новых) в ${data.updatedAt}`);
   } catch (e) {
     console.error('[refresh] ошибка:', e.message);
   }
